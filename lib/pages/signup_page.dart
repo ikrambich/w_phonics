@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:w_phonics/widgets/custom_textfield.dart';
 import 'package:w_phonics/widgets/password_textfield.dart';
+import 'package:w_phonics/widgets/signup_section.dart';
+import 'package:w_phonics/widgets/type_of_user_selection_section.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  var currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,86 +28,28 @@ class SignupPage extends StatelessWidget {
               width: 250,
               height: 250,
             ),
-            Text(
-              "Welcome to W phonics!",
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+            if(currentPageIndex == 0)SignupSection(),
+            if(currentPageIndex == 1 ) TypeOfUserSelectionSection(
+              options: ["Guardian", "Tutor", "Teacher", "Other"],
+              onSelect: (selectedItems) => print(selectedItems),
             ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                spacing: 16,
-                children: [
-                  CustomTextField(label: "Email"),
-                  PassswordTextfield(),
-                ],
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size.fromWidth(
+                  MediaQuery.sizeOf(context).width * 0.7,
+                ),
               ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal:24),
-              child: AgreementWIdget(),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: ElevatedButton(onPressed: (){}, child: Text("Next"),),
+              onPressed: () {
+                //increment current page index
+                setState(() {
+                  currentPageIndex++;
+                });
+              },
+              child: Text("Next"),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class AgreementWIdget extends StatelessWidget {
-  const AgreementWIdget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Checkbox(
-              value: false,
-              onChanged: (value) {},
-              checkColor: Colors.white,
-              activeColor: Colors.white,
-              focusColor: Colors.white,
-            ),
-            Text("SELECT ALL"),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left:24.0),
-          child: Column(children: [Row(
-            children: [
-              Checkbox(
-                value: false,
-                onChanged: (value) {},
-                
-              ),
-              Expanded(child: Text("* I agree to the privacy policy and terms")),
-            ],
-          ),Row(
-            children: [
-              Checkbox(
-                value: false,
-                onChanged: (value) {},
-                checkColor: Colors.white,
-                activeColor: Colors.white,
-                focusColor: Colors.white
-              ),
-              Expanded(child: Text("I want to receive email update from Jolly Learning")),
-            ],
-          ),],),
-        )
-      ],
     );
   }
 }
