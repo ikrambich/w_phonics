@@ -24,6 +24,7 @@ class _LessonsPageState extends State<LessonsPage> {
               GroupItem(),
               GroupItem(),
               GroupItem(),
+              GroupItem(),
             ],
           ),
         ),
