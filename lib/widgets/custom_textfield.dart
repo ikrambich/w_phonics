@@ -21,6 +21,10 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       keyboardType: textInputType,
+      style: const TextStyle(
+        color: Colors.white,
+    ),
+
 
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
